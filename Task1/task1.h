@@ -149,12 +149,14 @@ public:
 		height = nheight;
 	}
 
-	void render() {
+	void render() 
+	{
 		cout << "Drawing rectangle with height: " << height << " and width: " << width << " at: " << getX() << ", " << getY() << endl;
 	}
 };
 
-class Triangle : public Shape {
+class Triangle : public Shape 
+{
 private:
 	int base;
 	int height;
