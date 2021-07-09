@@ -167,7 +167,7 @@ public:
 
 		SDL_RenderPresent(r);
 
-		SDL_Delay(3000);
+		SDL_Delay(1000);
 
 	}
 };
@@ -215,7 +215,7 @@ public:
 
 		SDL_RenderPresent(r);
 
-		SDL_Delay(3000);
+		SDL_Delay(1000);
 	}
 };
 
@@ -252,7 +252,7 @@ public:
 		int theta = 0;
 		int h = 12;
 		int k = 10;
-		int step = 15;
+		int step = 1;
 		while (theta <= 2160) {
 			int x = h + rad * cos(theta);
 			int y = k + rad * sin(theta);
@@ -262,6 +262,6 @@ public:
 
 		SDL_RenderPresent(r);
 
-		SDL_Delay(3000);
+		SDL_Delay(1000);
 	}
 };

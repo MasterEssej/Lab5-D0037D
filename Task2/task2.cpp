@@ -79,5 +79,91 @@ int main(int arg, char* args[])
 
 int main(int arg, char* args[])
 {
+	srand(time(NULL));
+	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Window* window = SDL_CreateWindow("fynster", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN);
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+	SDL_Event event;
 
+	int rcol[4] = { 255, 0, 0, 255 };
+	int tcol[4] = { 0, 255, 0, 255 };
+	int ccol[4] = { 0, 0, 255, 255 };
+
+	vector<Shape*>shapes;
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+
+	bool quit = false;
+	while (!quit) 
+	{
+		while (SDL_PollEvent(&event))
+		{
+			int limit = 100;
+			int xrand = (rand() % 400) + limit;
+			int yrand = (rand() % 300) + limit;
+			int xsize = (rand() % 250) + limit;
+			int ysize = (rand() % 250) + limit;
+			int radsize = (rand() % 250) + limit;
+
+			Point2D p(xrand, yrand);
+			switch (event.type)
+			{
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym)
+				{
+				case SDLK_r:
+				{
+					Rectangle r(p, rcol, xsize, ysize);
+					shapes.push_back(&r);
+					shapes[shapes.size() - 1]->render(renderer);
+				}
+				break;
+
+				case SDLK_t:
+				{
+					Triangle t(p, tcol, xsize, ysize);
+					shapes.push_back(&t);
+					shapes[shapes.size() - 1]->render(renderer);
+				}
+				break;
+
+				case SDLK_c:
+				{
+					Circle c(p, ccol, radsize);
+					shapes.push_back(&c);
+					shapes[shapes.size() - 1]->render(renderer);
+				}
+				break;
+
+				case SDLK_q:
+				{
+					quit = true;
+				}
+				break;
+
+				case SDLK_x:
+				{
+					shapes.clear();
+					SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+					SDL_RenderClear(renderer);
+					SDL_RenderPresent(renderer);
+				}
+				break;
+
+				default:
+					break;
+
+				}
+				break;
+
+			}
+		}
+	}
+		
+	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(renderer);
+	SDL_Quit();
+
+	return 0;
 }
